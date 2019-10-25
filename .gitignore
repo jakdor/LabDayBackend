@@ -1,3 +1,6 @@
+### Project ###
+*.db
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json

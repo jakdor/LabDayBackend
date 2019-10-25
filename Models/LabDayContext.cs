@@ -6,6 +6,29 @@ namespace LabDayBackend.Models
     public class LabDayContext : DbContext 
     {
         public LabDayContext(DbContextOptions<LabDayContext> options): base(options){
+            Database.EnsureCreated();
+        }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
+            modelBuilder.Entity<Path>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Timetable>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Event>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Speaker>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Place>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
         }
 
         public DbSet<Path> Paths { get; set; }

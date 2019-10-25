@@ -1,4 +1,5 @@
 ﻿using LabDayBackend.Models;
+using LabDayBackend.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,12 @@ namespace LabDayBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LabDayContext>(options => options.UseSqlite("Data Source=db.sqlite"));
+            services.AddDbContext<LabDayContext>(options => options.UseSqlite("Data Source=database.db"));
             
             services.AddControllers();
+
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddTransient<IAdminRepository, AdminRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
