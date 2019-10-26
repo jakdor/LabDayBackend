@@ -1,10 +1,13 @@
 using System.Threading.Tasks;
 using LabDayBackend.Models.Db;
+using LabDayBackend.Models.Response;
 
 namespace LabDayBackend.Repositories
 {
     public interface IAdminRepository
     {
+        public Task InitDb(AppDataResponse appData);
+        
         public Task AddEvent(Event eventModel);
         public Task AddPath(Path path);
         public Task AddPlace(Place place);

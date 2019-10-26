@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LabDayBackend.Models;
 using LabDayBackend.Models.Db;
+using LabDayBackend.Models.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace LabDayBackend.Repositories
@@ -12,6 +15,59 @@ namespace LabDayBackend.Repositories
         public AdminRepository(LabDayContext context)
         {
             _context = context;
+        }
+
+        public Task InitDb(AppDataResponse appData)
+        {
+            appData.Events.Sort((i1, i2) => i1.Id.CompareTo(i2.Id));
+            appData.Paths.Sort((i1, i2) => i1.Id.CompareTo(i2.Id));
+            appData.Places.Sort((i1, i2) => i1.Id.CompareTo(i2.Id));
+            appData.Speakers.Sort((i1, i2) => i1.Id.CompareTo(i2.Id));
+            appData.Timetables.Sort((i1, i2) => i1.Id.CompareTo(i2.Id));
+
+            var newEvents = new List<Event>(appData.Events.Last().Id);
+            var newPaths = new List<Path>(appData.Paths.Last().Id);
+            var newPlaces = new List<Place>(appData.Places.Last().Id);
+            var newSpeakers = new List<Speaker>(appData.Speakers.Last().Id);
+            var newTimetables = new List<Timetable>(appData.Timetables.Last().Id);
+
+            for(var i = 1; i <= appData.Events.Last().Id; ++i){
+                var obj = appData.Events.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newEvents.Add(obj);
+                else newEvents.Add(new Event { Id = i, IsBlocked = true });
+            }
+
+            for(var i = 1; i <= appData.Paths.Last().Id; ++i){
+                var obj = appData.Paths.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newPaths.Add(obj);
+                else newPaths.Add(new Path { Id = i, IsBlocked = true });
+            }
+
+            for(var i = 1; i <= appData.Places.Last().Id; ++i){
+                var obj = appData.Places.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newPlaces.Add(obj);
+                else newPlaces.Add(new Place { Id = i, IsBlocked = true });
+            }
+
+            for(var i = 1; i <= appData.Speakers.Last().Id; ++i){
+                var obj = appData.Speakers.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newSpeakers.Add(obj);
+                else newSpeakers.Add(new Speaker { Id = i, IsBlocked = true });
+            }
+
+            for(var i = 1; i <= appData.Timetables.Last().Id; ++i){
+                var obj = appData.Timetables.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newTimetables.Add(obj);
+                else newTimetables.Add(new Timetable { Id = i, IsBlocked = true });
+            }
+
+            _context.Paths.AddRange(newPaths);
+            _context.Places.AddRange(newPlaces);
+            _context.Speakers.AddRange(newSpeakers);
+            _context.Events.AddRange(newEvents);
+            _context.Timetables.AddRange(newTimetables);
+
+            return _context.SaveChangesAsync();
         }
 
         public Task AddEvent(Event eventModel)

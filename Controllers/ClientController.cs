@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using LabDayBackend.Models.Db;
 using LabDayBackend.Models.Response;
 using LabDayBackend.Repositories;
@@ -19,10 +18,16 @@ namespace LabDayBackend.Controllers
         }
         
         [HttpGet("last_update")]
-        public async Task<ActionResult<LastUpdateResponse>> GetLastUpdate(){
+        public ActionResult<LastUpdateResponse> GetLastUpdate(){
             return new LastUpdateResponse {
-                UpdatedAt = "test"
+                UpdatedAt = "test" //todo
             };
+        }
+
+        [HttpGet("app_data")]
+        public ActionResult<AppDataResponse> GetAppData()
+        {
+            return _clientRepository.GetAppData(2); //todo pathId based on user
         }
 
         [HttpGet("events")]

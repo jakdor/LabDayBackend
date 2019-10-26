@@ -1,6 +1,6 @@
-using System;
 using System.Threading.Tasks;
 using LabDayBackend.Models.Db;
+using LabDayBackend.Models.Response;
 using LabDayBackend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +15,12 @@ namespace LabDayBackend.Controllers
         public AdminController(IAdminRepository repository)
         {
             _adminRepository = repository;
+        }
+
+        [HttpPost("initdb")]
+        public async Task<ActionResult<AppDataResponse>> PostInitDb(AppDataResponse bundle){
+            await _adminRepository.InitDb(bundle);
+            return Created("initdb", bundle);
         }
 
         [HttpPost("events")]
