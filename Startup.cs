@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 
 namespace LabDayBackend
 {
@@ -23,7 +24,9 @@ namespace LabDayBackend
         {
             services.AddDbContext<LabDayContext>(options => options.UseSqlite("Data Source=database.db"));
             
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = 
+                new DefaultContractResolver() { NamingStrategy = new SnakeCaseNamingStrategy() }
+            );
 
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IAdminRepository, AdminRepository>();

@@ -25,10 +25,34 @@ namespace LabDayBackend.Controllers
             };
         }
 
+        [HttpGet("events")]
+        public ActionResult<IList<Event>> GetEvents()
+        {
+            return _clientRepository.GetAllEvents();
+        }
+
         [HttpGet("paths")]
         public ActionResult<IList<Path>> GetPaths()
         {
             return _clientRepository.GetAllPaths();
+        }
+
+        [HttpGet("places")]
+        public ActionResult<IList<Place>> GetPlaces()
+        {
+            return _clientRepository.GetAllPlaces();
+        }
+
+        [HttpGet("speakers")]
+        public ActionResult<IList<Speaker>> GetSpeakers()
+        {
+            return _clientRepository.GetAllSpeakers();
+        }
+
+        [HttpGet("timetables")]
+        public ActionResult<IList<Timetable>> GetTimetables()
+        {
+            return _clientRepository.GetAllTimetables();
         }
     }
 }

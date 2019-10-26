@@ -14,9 +14,29 @@ namespace LabDayBackend.Repositories
             _context = context;
         }
 
+        public List<Event> GetAllEvents()
+        {
+            return _context.Events.Where(obj => !obj.IsBlocked).ToList();
+        }
+
         public List<Path> GetAllPaths()
         {
-            return _context.Paths.ToList();
+            return _context.Paths.Where(obj => !obj.IsBlocked).ToList();
+        }
+
+        public List<Place> GetAllPlaces()
+        {
+            return _context.Places.Where(obj => !obj.IsBlocked).ToList();
+        }
+
+        public List<Speaker> GetAllSpeakers()
+        {
+            return _context.Speakers.Where(obj => !obj.IsBlocked).ToList();
+        }
+
+        public List<Timetable> GetAllTimetables()
+        {
+            return _context.Timetables.Where(obj => !obj.IsBlocked).ToList();
         }
     }
 }
