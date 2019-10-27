@@ -29,6 +29,14 @@ namespace LabDayBackend.Models
             modelBuilder.Entity<Place>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Parameter>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Parameter>()
+                .HasIndex(u => u.Key)
+                .IsUnique();
         }
 
         public DbSet<Path> Paths { get; set; }
@@ -36,5 +44,7 @@ namespace LabDayBackend.Models
         public DbSet<Event> Events { get; set; }
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<Place> Places { get; set; }
+
+        public DbSet<Parameter> Parameters { get; set; }
     }
 }

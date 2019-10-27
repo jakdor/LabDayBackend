@@ -11,16 +11,18 @@ namespace LabDayBackend.Controllers
     public class ClientController : Controller
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IUpdateTimeRepository _updateTimeRepository;
 
-        public ClientController(IClientRepository repository)
+        public ClientController(IClientRepository clientRepository, IUpdateTimeRepository updateTimeRepository)
         {
-            _clientRepository = repository;
+            _clientRepository = clientRepository;
+            _updateTimeRepository = updateTimeRepository;
         }
         
         [HttpGet("last_update")]
         public ActionResult<LastUpdateResponse> GetLastUpdate(){
             return new LastUpdateResponse {
-                UpdatedAt = "test" //todo
+                UpdatedAt = _updateTimeRepository.GetLastUpdateTimestamp()
             };
         }
 

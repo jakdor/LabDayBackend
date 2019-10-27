@@ -31,6 +31,20 @@ namespace LabDayBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Parameters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Key = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parameters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Paths",
                 columns: table => new
                 {
@@ -96,12 +110,21 @@ namespace LabDayBackend.Migrations
                 {
                     table.PrimaryKey("PK_Timetables", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Parameters_Key",
+                table: "Parameters",
+                column: "Key",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Parameters");
 
             migrationBuilder.DropTable(
                 name: "Paths");

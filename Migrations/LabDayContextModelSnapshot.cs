@@ -62,6 +62,26 @@ namespace LabDayBackend.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("LabDayBackend.Models.Db.Parameter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Key")
+                        .IsUnique();
+
+                    b.ToTable("Parameters");
+                });
+
             modelBuilder.Entity("LabDayBackend.Models.Db.Path", b =>
                 {
                     b.Property<int>("Id")

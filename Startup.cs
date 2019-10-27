@@ -30,6 +30,7 @@ namespace LabDayBackend
 
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IAdminRepository, AdminRepository>();
+            services.AddTransient<IUpdateTimeRepository, UpdateTimeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
