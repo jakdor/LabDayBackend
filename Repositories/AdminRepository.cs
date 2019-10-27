@@ -134,6 +134,9 @@ namespace LabDayBackend.Repositories
 
         public Event DeleteEvent(int id)
         {
+            var constraintCheck = _context.Timetables.Where(obj => obj.EventId == id);
+            if(constraintCheck.Any()) return null;
+            
             var obj = _context.Events.Find(id);
             obj.IsBlocked = true;
             _context.Events.Update(obj);
@@ -161,6 +164,9 @@ namespace LabDayBackend.Repositories
 
         public Speaker DeleteSpeaker(int id)
         {
+            var constraintCheck = _context.Events.Where(obj => obj.SpeakerId == id);
+            if(constraintCheck.Any()) return null;
+            
             var obj = _context.Speakers.Find(id);
             obj.IsBlocked = true;
             _context.Speakers.Update(obj);

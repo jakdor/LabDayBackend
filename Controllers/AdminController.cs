@@ -96,7 +96,9 @@ namespace LabDayBackend.Controllers
         [HttpDelete("events/{id}")]
         public ActionResult<Event> DeleteEvent(int id)
         {
-            return _adminRepository.DeleteEvent(id);
+            var deletedEvent = _adminRepository.DeleteEvent(id);
+            if(deletedEvent != null) return deletedEvent;
+            else return Conflict();
         }
 
         [HttpDelete("paths/{id}")]
@@ -114,7 +116,9 @@ namespace LabDayBackend.Controllers
         [HttpDelete("speakers/{id}")]
         public ActionResult<Speaker> DeleteSpeaker(int id)
         {
-            return _adminRepository.DeleteSpeaker(id);
+            var deletedSpeaker = _adminRepository.DeleteSpeaker(id);
+            if(deletedSpeaker != null) return deletedSpeaker;
+            else return Conflict();
         }
 
         [HttpDelete("timetables/{id}")]
