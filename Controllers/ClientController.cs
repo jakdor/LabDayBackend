@@ -66,7 +66,8 @@ namespace LabDayBackend.Controllers
         [HttpGet("app_data")]
         public ActionResult<AppDataResponse> GetAppData()
         {
-            return _clientRepository.GetAppData(2); //todo pathId based on user
+            var user = _authService.GetById(int.Parse(User.Identity.Name));
+            return _clientRepository.GetAppData(user.PathId);
         }
 
         [HttpGet("events")]
