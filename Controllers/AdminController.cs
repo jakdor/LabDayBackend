@@ -30,6 +30,13 @@ namespace LabDayBackend.Controllers
             return Created("register", model);
         }
 
+        [HttpDelete("user/{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            if(!_authService.Delete(id)) return BadRequest();
+            return Ok();
+        }
+
         [HttpPost("initdb")]
         public async Task<ActionResult<AppDataResponse>> PostInitDb(AppDataResponse bundle){
             await _adminRepository.InitDb(bundle);
