@@ -30,6 +30,10 @@ namespace LabDayBackend.Models
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<User>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Parameter>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
@@ -45,6 +49,7 @@ namespace LabDayBackend.Models
         public DbSet<Speaker> Speakers { get; set; }
         public DbSet<Place> Places { get; set; }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
     }
 }

@@ -1,20 +1,33 @@
 using System.Threading.Tasks;
 using LabDayBackend.Models.Db;
+using LabDayBackend.Models.Request;
 using LabDayBackend.Models.Response;
 using LabDayBackend.Repositories;
+using LabDayBackend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabDayBackend.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/admin")]
     [ApiController]
     public class AdminController : Controller
     {
         private readonly IAdminRepository _adminRepository;
+        private readonly IAuthService _authService;
 
-        public AdminController(IAdminRepository repository)
+        public AdminController(IAdminRepository repository, IAuthService authService)
         {
             _adminRepository = repository;
+            _authService = authService;
+        }
+
+        [HttpPost("register")]
+        public ActionResult PostRegister(RegisterRequest model)
+        {
+            if(!_authService.Register(model.Username, model.Password, model.PathId, model.IsAdmin)) return BadRequest();
+            return Created("register", model);
         }
 
         [HttpPost("initdb")]

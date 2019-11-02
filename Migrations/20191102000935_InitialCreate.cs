@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LabDayBackend.Migrations
 {
@@ -111,6 +112,24 @@ namespace LabDayBackend.Migrations
                     table.PrimaryKey("PK_Timetables", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(nullable: true),
+                    Hash = table.Column<byte[]>(nullable: true),
+                    Salt = table.Column<byte[]>(nullable: true),
+                    IsAdmin = table.Column<bool>(nullable: false),
+                    IsBlocked = table.Column<bool>(nullable: false),
+                    PathId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Parameters_Key",
                 table: "Parameters",
@@ -137,6 +156,9 @@ namespace LabDayBackend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Timetables");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
