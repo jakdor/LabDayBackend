@@ -66,7 +66,6 @@ namespace LabDayBackend.Migrations
                     Name = table.Column<string>(nullable: true),
                     Info = table.Column<string>(nullable: true),
                     Img = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
                     Dor1Img = table.Column<string>(nullable: true),
                     Dor2Img = table.Column<string>(nullable: true),
                     Latitude = table.Column<string>(nullable: true),
@@ -101,6 +100,7 @@ namespace LabDayBackend.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     TimeStart = table.Column<long>(nullable: false),
+                    TimeEnd = table.Column<long>(nullable: false),
                     IsBlocked = table.Column<bool>(nullable: false),
                     PathId = table.Column<int>(nullable: false),
                     EventId = table.Column<int>(nullable: false)

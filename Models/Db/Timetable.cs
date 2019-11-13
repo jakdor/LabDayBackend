@@ -4,6 +4,7 @@ namespace LabDayBackend.Models.Db
     {
         public int Id { get; set; }
         public long TimeStart { get; set; }
+        public long TimeEnd { get; set; }
         public bool IsBlocked { get; set; }
 
         public int PathId { get; set; }

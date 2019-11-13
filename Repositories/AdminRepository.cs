@@ -47,7 +47,7 @@ namespace LabDayBackend.Repositories
                         Id = (newPlaces.LastOrDefault()?.Id ?? 1) + 1,
                         Type = 0,
                         Name = obj.Room,
-                        Address = obj.Address,
+                        Info = obj.Address,
                         Dor1Img = obj.Dor1Img,
                         Dor2Img = obj.Dor2Img,
                         Latitude = obj.Latitude,

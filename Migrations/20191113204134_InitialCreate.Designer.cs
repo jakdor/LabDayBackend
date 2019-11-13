@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabDayBackend.Migrations
 {
     [DbContext(typeof(LabDayContext))]
-    [Migration("20191113085600_InitialCreate")]
+    [Migration("20191113204134_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,9 +99,6 @@ namespace LabDayBackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Dor1Img")
                         .HasColumnType("TEXT");
 
@@ -170,6 +167,9 @@ namespace LabDayBackend.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("PathId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("TimeEnd")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("TimeStart")
