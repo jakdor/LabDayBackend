@@ -1,6 +1,8 @@
 ### Project ###
 *.db
 secrets.json
+*.db-shm
+*.db-wal
 
 ### VisualStudioCode ###
 .vscode/*

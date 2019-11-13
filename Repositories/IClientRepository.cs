@@ -8,7 +8,7 @@ namespace LabDayBackend.Repositories
     {
         public AppDataResponse GetAppData(int pathId);
 
-        public List<Event> GetAllEvents();
+        public List<EventResponse> GetAllEvents();
         public List<Path> GetAllPaths();
         public List<Place> GetAllPlaces();
         public List<Speaker> GetAllSpeakers();

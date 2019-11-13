@@ -71,7 +71,7 @@ namespace LabDayBackend.Controllers
         }
 
         [HttpGet("events")]
-        public ActionResult<IList<Event>> GetEvents()
+        public ActionResult<IList<EventResponse>> GetEvents()
         {
             return _clientRepository.GetAllEvents();
         }

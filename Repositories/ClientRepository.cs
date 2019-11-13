@@ -27,12 +27,31 @@ namespace LabDayBackend.Repositories
             var timetablesQuery = _context.Timetables.Where(obj => obj.PathId == pathObj.Id && !obj.IsBlocked).ToList();
             var eventsIds = timetablesQuery.Select(obj => obj.EventId);
 
-            var eventsQuery = _context.Events.Where(obj => eventsIds.Contains(obj.Id)).ToList();
+            var eventsQuery = _context.Events.Where(obj => eventsIds.Contains(obj.Id))
+                .Join(_context.Places, 
+                e => e.PlaceId, 
+                p => p.Id,
+                (e, p) => new EventResponse{
+                    Id = e.Id,
+                    Name = e.Name,
+                    Img = e.Img,
+                    Address = p.Address,
+                    Room = p.Name,
+                    Info = e.Info,
+                    Topic = e.Topic,
+                    Dor1Img = p.Dor1Img,
+                    Dor2Img = p.Dor2Img,
+                    Latitude = p.Latitude,
+                    Longitude = p.Longitude,
+                    SpeakerId = e.SpeakerId,
+                    IsBlocked = e.IsBlocked || p.IsBlocked
+                }).Where(obj => !obj.IsBlocked).ToList();
+                
             var speakersIds = eventsQuery.Select(obj => obj.SpeakerId);
 
             var speakersQuery = _context.Speakers.Where(obj => speakersIds.Contains(obj.Id)).ToList();
 
-            var placesQuery = _context.Places.ToList();
+            var placesQuery = _context.Places.Where(obj => !obj.IsBlocked && obj.Type != 0).ToList();
 
             return new AppDataResponse {
                 Paths = pathQuery,
@@ -43,9 +62,26 @@ namespace LabDayBackend.Repositories
             };
         }
 
-        public List<Event> GetAllEvents()
+        public List<EventResponse> GetAllEvents()
         {
-            return _context.Events.Where(obj => !obj.IsBlocked).ToList();
+            return _context.Events.Join(_context.Places, 
+                e => e.PlaceId, 
+                p => p.Id,
+                (e, p) => new EventResponse{
+                    Id = e.Id,
+                    Name = e.Name,
+                    Img = e.Img,
+                    Address = p.Address,
+                    Room = p.Name,
+                    Info = e.Info,
+                    Topic = e.Topic,
+                    Dor1Img = p.Dor1Img,
+                    Dor2Img = p.Dor2Img,
+                    Latitude = p.Latitude,
+                    Longitude = p.Longitude,
+                    SpeakerId = e.SpeakerId,
+                    IsBlocked = e.IsBlocked || p.IsBlocked
+                }).Where(obj => !obj.IsBlocked).ToList();
         }
 
         public List<Path> GetAllPaths()
@@ -55,7 +91,7 @@ namespace LabDayBackend.Repositories
 
         public List<Place> GetAllPlaces()
         {
-            return _context.Places.Where(obj => !obj.IsBlocked).ToList();
+            return _context.Places.Where(obj => !obj.IsBlocked && obj.Type != 0).ToList();
         }
 
         public List<Speaker> GetAllSpeakers()

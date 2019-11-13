@@ -33,22 +33,47 @@ namespace LabDayBackend.Repositories
             var newSpeakers = new List<Speaker>(appData.Speakers.Last().Id);
             var newTimetables = new List<Timetable>(appData.Timetables.Last().Id);
 
+            for(var i = 1; i <= appData.Places.Last().Id; ++i){
+                var obj = appData.Places.FirstOrDefault(o => o.Id == i);
+                if(obj != null) newPlaces.Add(obj);
+                else newPlaces.Add(new Place { Id = i, IsBlocked = true });
+            }
+
             for(var i = 1; i <= appData.Events.Last().Id; ++i){
                 var obj = appData.Events.FirstOrDefault(o => o.Id == i);
-                if(obj != null) newEvents.Add(obj);
-                else newEvents.Add(new Event { Id = i, IsBlocked = true });
+                if(obj != null)
+                {
+                    newPlaces.Add(new Place {
+                        Id = (newPlaces.LastOrDefault()?.Id ?? 1) + 1,
+                        Type = 0,
+                        Name = obj.Room,
+                        Address = obj.Address,
+                        Dor1Img = obj.Dor1Img,
+                        Dor2Img = obj.Dor2Img,
+                        Latitude = obj.Latitude,
+                        Longitude = obj.Longitude
+                    });
+                    
+                    newEvents.Add(new Event {
+                        Id = obj.Id,
+                        Name = obj.Name,
+                        Img = obj.Img,
+                        Info = obj.Info,
+                        Topic = obj.Topic,
+                        SpeakerId = obj.SpeakerId,
+                        PlaceId = newPlaces.LastOrDefault()?.Id ?? 1
+                    });
+                }
+                else
+                {
+                    newEvents.Add(new Event { Id = i, IsBlocked = true });
+                } 
             }
 
             for(var i = 1; i <= appData.Paths.Last().Id; ++i){
                 var obj = appData.Paths.FirstOrDefault(o => o.Id == i);
                 if(obj != null) newPaths.Add(obj);
                 else newPaths.Add(new Path { Id = i, IsBlocked = true });
-            }
-
-            for(var i = 1; i <= appData.Places.Last().Id; ++i){
-                var obj = appData.Places.FirstOrDefault(o => o.Id == i);
-                if(obj != null) newPlaces.Add(obj);
-                else newPlaces.Add(new Place { Id = i, IsBlocked = true });
             }
 
             for(var i = 1; i <= appData.Speakers.Last().Id; ++i){

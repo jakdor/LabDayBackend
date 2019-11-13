@@ -15,15 +15,10 @@ namespace LabDayBackend.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Img = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Room = table.Column<string>(nullable: true),
                     Info = table.Column<string>(nullable: true),
                     Topic = table.Column<string>(nullable: true),
-                    Dor1Img = table.Column<string>(nullable: true),
-                    Dor2Img = table.Column<string>(nullable: true),
-                    Latitude = table.Column<string>(nullable: true),
-                    Longitude = table.Column<string>(nullable: true),
                     IsBlocked = table.Column<bool>(nullable: false),
+                    PlaceId = table.Column<int>(nullable: false),
                     SpeakerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -71,6 +66,9 @@ namespace LabDayBackend.Migrations
                     Name = table.Column<string>(nullable: true),
                     Info = table.Column<string>(nullable: true),
                     Img = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Dor1Img = table.Column<string>(nullable: true),
+                    Dor2Img = table.Column<string>(nullable: true),
                     Latitude = table.Column<string>(nullable: true),
                     Longitude = table.Column<string>(nullable: true),
                     IsBlocked = table.Column<bool>(nullable: false)

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabDayBackend.Migrations
 {
     [DbContext(typeof(LabDayContext))]
-    [Migration("20191102000935_InitialCreate")]
+    [Migration("20191113085600_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,15 +24,6 @@ namespace LabDayBackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Dor1Img")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Dor2Img")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Img")
                         .HasColumnType("TEXT");
 
@@ -42,17 +33,11 @@ namespace LabDayBackend.Migrations
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Longitude")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Room")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("SpeakerId")
                         .HasColumnType("INTEGER");
@@ -113,6 +98,15 @@ namespace LabDayBackend.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Dor1Img")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Dor2Img")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Img")
                         .HasColumnType("TEXT");
